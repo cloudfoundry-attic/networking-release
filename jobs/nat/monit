@@ -1,0 +1,5 @@
+check file nat
+  with path /var/vcap/sys/run/nat/nat.check
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger nat_ctl '/var/vcap/jobs/nat/bin/nat_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger nat_ctl '/var/vcap/jobs/nat/bin/nat_ctl stop'"
+  group vcap

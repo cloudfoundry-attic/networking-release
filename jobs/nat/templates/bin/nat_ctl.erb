@@ -1,0 +1,98 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'nat'
+list_ip_forwarding() {
+    ip_forwarding=$(cat /proc/sys/net/ipv4/ip_forward)
+    echo "*** $(date) Current ip forwarding status: ${ip_forwarding}"
+}
+
+update_ip_forwarding() {
+    list_ip_forwarding
+
+    echo "*** $(date) Updating ip forwarding with: ${1}"
+    echo ${1} > /proc/sys/net/ipv4/ip_forward
+
+    list_ip_forwarding
+}
+
+list_iptable_rules() {
+    echo "*** $(date) Current iptable rules:"
+    /sbin/iptables --verbose --list
+    /sbin/iptables --verbose --list --table nat
+}
+
+update_iptable_rules() {
+    list_iptable_rules
+
+    echo "*** $(date) ${1} iptable rules:"
+    set +e
+    /sbin/iptables --verbose \
+                   --${1} POSTROUTING \
+                   --table nat \
+                   --out-interface <%= p('networking.nat.out_interface') %> \
+                   --jump MASQUERADE
+    /sbin/iptables --verbose \
+                   --${1} FORWARD \
+                   --in-interface <%= p('networking.nat.out_interface') %> \
+                   --out-interface <%= p('networking.nat.in_interface') %> \
+                   --match state --state RELATED,ESTABLISHED \
+                   --jump ACCEPT
+    /sbin/iptables --verbose \
+                   --${1} FORWARD \
+                   --in-interface <%= p('networking.nat.in_interface') %> \
+                   --out-interface <%= p('networking.nat.out_interface') %> \
+                   --jump ACCEPT
+    set -e
+
+    list_iptable_rules
+}
+
+case $1 in
+
+    start)
+        echo "****** $(date) ${0} start"
+
+        # Enable IP forwarding
+        update_ip_forwarding 1
+
+        # Enable iptable rules
+        update_iptable_rules 'append'
+
+        # Create check file
+        touch ${NAT_PID_DIR}/nat.check
+        ;;
+
+    stop)
+        echo "****** $(date) ${0} stop"
+
+        # Disable iptable rules
+        update_iptable_rules 'delete'
+
+        # Disable IP forwarding
+        update_ip_forwarding 0
+
+        # Remove check file
+        rm ${NAT_PID_DIR}/nat.check
+        ;;
+
+    status)
+        echo "****** $(date) ${0} status"
+
+        # List ip forwarding status
+        list_ip_forwarding
+
+        # List iptable rules
+        list_iptable_rules
+        ;;
+
+    *)
+        echo "Usage: ${0} {start|stop|status}"
+        exit 1
+        ;;
+
+esac
+exit 0

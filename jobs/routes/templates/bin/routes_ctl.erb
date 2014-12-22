@@ -1,0 +1,85 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'routes'
+
+list_routes() {
+    echo "*** $(date) Current routes:"
+    /sbin/route --verbose --numeric
+}
+
+update_routes() {
+    list_routes
+
+    echo "*** $(date) ${1} route:"
+    set +e
+    /sbin/route --verbose ${1} ${2}
+    set -e
+
+    list_routes
+}
+
+case $1 in
+
+    start)
+        echo "****** $(date) ${0} start"
+
+        <% p('networking.routes', []).each do |route|
+             route_command = ""
+             route_command += " -net #{route['net']}"        if route['net']
+             route_command += " -host #{route['host']}"      if route['host']
+             route_command += " netmask #{route['netmask']}" if route['netmask']
+             route_command += " gw #{route['gateway']}"      if route['gateway']
+             route_command += " metric #{route['metric']}"   if route['metric']
+             route_command += " mss #{route['mss']}"         if route['mss']
+             route_command += " window #{route['window']}"   if route['window']
+             route_command += " irtt #{route['irtt']}"       if route['irtt']
+             route_command += " dev #{route['interface']}"   if route['interface']
+        %>
+        # Add route
+        update_routes add "<%= route_command %>"
+        <% end %>
+
+        # Create check file
+        touch ${ROUTES_PID_DIR}/routes.check
+        ;;
+
+    stop)
+        echo "****** $(date) ${0} stop"
+
+        <% p('networking.routes', []).each do |route|
+             route_command = ""
+             route_command += " -net #{route['net']}"        if route['net']
+             route_command += " -host #{route['host']}"      if route['host']
+             route_command += " netmask #{route['netmask']}" if route['netmask']
+             route_command += " gw #{route['gateway']}"      if route['gateway']
+             route_command += " metric #{route['metric']}"   if route['metric']
+             route_command += " mss #{route['mss']}"         if route['mss']
+             route_command += " window #{route['window']}"   if route['window']
+             route_command += " irtt #{route['irtt']}"       if route['irtt']
+             route_command += " dev #{route['interface']}"   if route['interface']
+        %>
+        # Delete route
+        update_routes del "<%= route_command %>"
+        <% end %>
+
+        # Remove check file
+        rm ${ROUTES_PID_DIR}/routes.check
+        ;;
+
+    status)
+        echo "****** $(date) ${0} status"
+
+        # List routes
+        list_routes
+        ;;
+
+    *)
+        echo "Usage: $0 {start|stop|status}"
+        exit 1
+        ;;
+
+esac
+exit 0

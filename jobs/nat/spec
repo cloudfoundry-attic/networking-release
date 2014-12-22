@@ -1,0 +1,17 @@
+---
+name: nat
+
+packages:
+  - bosh-helpers
+
+templates:
+  bin/job_properties.sh.erb: bin/job_properties.sh
+  bin/nat_ctl.erb: bin/nat_ctl
+
+properties:
+  networking.nat.in_interface:
+    description: "Input interface to forward packets"
+    default: "eth0"
+  networking.nat.out_interface:
+    description: "Output interface to forward packets"
+    default: "eth1"

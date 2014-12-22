@@ -1,0 +1,13 @@
+---
+name: gateway
+
+packages:
+  - bosh-helpers
+
+templates:
+  bin/gateway_ctl.erb: bin/gateway_ctl
+  bin/job_properties.sh.erb: bin/job_properties.sh
+
+properties:
+  networking.gateway.default:
+    description: "Default gateway"

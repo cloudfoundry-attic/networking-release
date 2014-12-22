@@ -1,0 +1,5 @@
+check file routes
+  with path /var/vcap/sys/run/routes/routes.check
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger routes_ctl '/var/vcap/jobs/routes/bin/routes_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger routes_ctl '/var/vcap/jobs/routes/bin/routes_ctl stop'"
+  group vcap
