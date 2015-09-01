@@ -30,7 +30,7 @@ update_default_gateway() {
     gateway=$(lookup_hostname ${2})
     if [ -n "${gateway}" ];then
         set +e
-        route --verbose ${1} default gw ${gateway}
+        /sbin/route --verbose ${1} default gw ${gateway}
         set -e
     else
         echo "Could not resolve hostname ${2}"
