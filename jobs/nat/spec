@@ -2,10 +2,8 @@
 name: nat
 
 packages:
-  - bosh-helpers
 
 templates:
-  bin/job_properties.sh.erb: bin/job_properties.sh
   bin/nat_ctl.erb: bin/nat_ctl
 
 properties:

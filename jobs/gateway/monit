@@ -1,5 +1,5 @@
 check file gateway
   with path /var/vcap/sys/run/gateway/gateway.check
-  start program "/var/vcap/packages/bosh-helpers/monit_debugger gateway_ctl '/var/vcap/jobs/gateway/bin/gateway_ctl start'"
-  stop program "/var/vcap/packages/bosh-helpers/monit_debugger gateway_ctl '/var/vcap/jobs/gateway/bin/gateway_ctl stop'"
+  start program "/var/vcap/jobs/gateway/bin/gateway_ctl start"
+  stop program "/var/vcap/jobs/gateway/bin/gateway_ctl stop"
   group vcap

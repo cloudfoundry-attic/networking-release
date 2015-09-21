@@ -1,9 +1,9 @@
 #!/bin/bash
 
 set -e # exit immediately if a simple command exits with a non-zero status
-
-# Setup common env vars and folders
-source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'routes'
+mkdir -p /var/vcap/sys/{log,run}/routes
+exec 1>> /var/vcap/sys/log/routes/routes.out.log
+exec 2>> /var/vcap/sys/log/routes/routes.err.log
 
 list_routes() {
     echo "*** $(date) Current routes:"
@@ -43,7 +43,7 @@ case $1 in
         <% end %>
 
         # Create check file
-        touch ${ROUTES_PID_DIR}/routes.check
+        touch /var/vcap/sys/run/routes/routes.check
         ;;
 
     stop)
@@ -66,7 +66,7 @@ case $1 in
         <% end %>
 
         # Remove check file
-        rm ${ROUTES_PID_DIR}/routes.check
+        rm /var/vcap/sys/run/routes/routes.check
         ;;
 
     status)

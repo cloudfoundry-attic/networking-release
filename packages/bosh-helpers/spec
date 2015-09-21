@@ -1,5 +1,0 @@
----
-name: bosh-helpers
-dependencies: {}
-files:
-  - bosh-helpers/*
