@@ -1,0 +1,23 @@
+---
+packages: []
+jobs:
+- name: gateway
+  version: f3485630b99f1e00b311e861c97a1ac3d18dc44e
+  fingerprint: f3485630b99f1e00b311e861c97a1ac3d18dc44e
+  sha1: 28a1d88aba72724f0a4b0173a814c8c3bd36448c
+- name: nat
+  version: 46475809128ee30cf7c3829bbbc15906ea9a1f9f
+  fingerprint: 46475809128ee30cf7c3829bbbc15906ea9a1f9f
+  sha1: 012501dce009dac95bc8faf16e9bd34510e5508b
+- name: routes
+  version: b65d224947319eb4df6008c19b07579c9be0d445
+  fingerprint: b65d224947319eb4df6008c19b07579c9be0d445
+  sha1: 58a09fbb90cf4a38a6e63a6f186c1e823f67884d
+license:
+  version: b05c781702eb7beb67f8590ba3b577efb5c5a575
+  fingerprint: b05c781702eb7beb67f8590ba3b577efb5c5a575
+  sha1: 47680140b91e608fa5531335f89697e1d45b9f4c
+commit_hash: 803b2182
+uncommitted_changes: true
+name: networking
+version: '4'
