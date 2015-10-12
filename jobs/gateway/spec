@@ -1,7 +1,7 @@
 ---
 name: gateway
 
-packages:
+packages: []
 
 templates:
   bin/gateway_ctl.erb: bin/gateway_ctl

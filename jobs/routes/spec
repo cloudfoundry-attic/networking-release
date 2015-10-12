@@ -1,7 +1,7 @@
 ---
 name: routes
 
-packages:
+packages: []
 
 templates:
   bin/routes_ctl.erb: bin/routes_ctl

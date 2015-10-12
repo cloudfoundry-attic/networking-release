@@ -1,7 +1,7 @@
 ---
 name: nat
 
-packages:
+packages: []
 
 templates:
   bin/nat_ctl.erb: bin/nat_ctl
