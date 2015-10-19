@@ -17,7 +17,7 @@ To use this bosh release, first upload it to your bosh:
 bosh target BOSH_HOST
 git clone https://github.com/cf-platform-eng/networking-boshrelease.git
 cd networking-boshrelease
-bosh upload release releases/networking/networking-4.yml
+bosh upload release releases/networking/networking-5.yml
 ```
 
 ### Add the release to your BOSH deployment manifest
