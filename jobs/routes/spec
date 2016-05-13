@@ -10,12 +10,12 @@ properties:
   networking.routes:
     description: "List of routes to be added"
     example:
-      - net: # net: the destination network
-        host: # host: the destination host
-        netmask: # netmask: when adding a network route, the netmask to be used
-        gateway: # gateway: route packets via a gateway
-        metric: # metric: the metric field in the routing table to M.
-        mss: # mss: the TCP Maximum Segment Size (MSS) for connections over this route to M bytes
-        window: # window: the TCP window size for connections over this route to W bytes
-        irtt: # irtt: the initial round trip time (irtt) for TCP connections over this route to I milliseconds (1-12000)
-        interface: # interface: force the route to be associated with the specified device
+      - net: 10.9.9.0 # the destination network
+        host: # the destination host
+        netmask: 255.255.255.0 # when adding a network route, the netmask to be used
+        gateway: 10.10.0.2 # route packets via a gateway.
+        metric: # the metric field in the routing table to M.
+        mss: # the TCP Maximum Segment Size (MSS) for connections over this route to M bytes
+        window: # the TCP window size for connections over this route to W bytes
+        irtt: # the initial round trip time (irtt) for TCP connections over this route to I milliseconds (1-12000)
+        interface: eth1 # force the route to be associated with the specified device
