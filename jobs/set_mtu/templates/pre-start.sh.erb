@@ -2,8 +2,8 @@
 
 set -eu
 
-INTERFACE=<%= p('set_mtu.interface') %>
-MTU=<%= p('set_mtu.mtu') %>
+INTERFACE=<%= p('networking.set_mtu.interface') %>
+MTU=<%= p('networking.set_mtu.mtu') %>
 
 DHCP_HOOK=/etc/dhcp/dhclient-exit-hooks.d/set_mtu
 

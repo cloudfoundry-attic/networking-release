@@ -6,16 +6,9 @@ special networking properties:
 * [Gateway](jobs/gateway): allows to add a [default gateway](http://en.wikipedia.org/wiki/Default_gateway) to your vms
 * [NAT](jobs/nat): allows to create a [NAT](http://en.wikipedia.org/wiki/Network_address_translation) vm using [iptables](http://en.wikipedia.org/wiki/Iptables)
 * [Routes](jobs/routes): allows to add [IP routes](http://en.wikipedia.org/wiki/Routing_table) to your vms
+* [MTU](jobs/set_mtu): allows to override [MTU](https://en.wikipedia.org/wiki/Maximum_transmission_unit) on your vms
 
 ## Usage
-
-### Upload the BOSH release
-
-To use this bosh release, first upload it to your bosh:
-
-```bash
-bosh upload release https://bosh.io/d/github.com/cloudfoundry/networking-release
-```
 
 ### Add the release to your BOSH deployment manifest
 
@@ -62,15 +55,6 @@ instance_groups:
               gateway: 10.9.9.1                     # +
       - name: gorouter
         release: cf
-```
-
-### Deploy using the BOSH deployment manifest
-
-Using the previous created deployment manifest, now we can deploy it:
-
-``` shell
-bosh deployment path/to/deployment.yml
-bosh deploy
 ```
 
 ## References
