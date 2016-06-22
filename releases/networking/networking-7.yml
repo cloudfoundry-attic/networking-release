@@ -1,0 +1,27 @@
+---
+packages: []
+jobs:
+- name: gateway
+  version: f3485630b99f1e00b311e861c97a1ac3d18dc44e
+  fingerprint: f3485630b99f1e00b311e861c97a1ac3d18dc44e
+  sha1: 59ed18f91c72507cde393f90b78b4f73e3e37df5
+- name: nat
+  version: 46475809128ee30cf7c3829bbbc15906ea9a1f9f
+  fingerprint: 46475809128ee30cf7c3829bbbc15906ea9a1f9f
+  sha1: 32d635e44f6725688c4b5e81747456364ee1e394
+- name: routes
+  version: 3f8003146a2773658f4a1574d2fba9c9f8f85372
+  fingerprint: 3f8003146a2773658f4a1574d2fba9c9f8f85372
+  sha1: 88525363b2e608fd1cbf4d92726e93cd4bce3e2a
+- name: set_mtu
+  version: 88924042e741282f43925fe0101aa6909b4d6226
+  fingerprint: 88924042e741282f43925fe0101aa6909b4d6226
+  sha1: bd54e0e0e661b0bd42e2e26ba6726971c41d2eb5
+license:
+  version: b05c781702eb7beb67f8590ba3b577efb5c5a575
+  fingerprint: b05c781702eb7beb67f8590ba3b577efb5c5a575
+  sha1: 66c47e39720a8527bee9289e78d8c998fb193a87
+commit_hash: 0327ad55
+uncommitted_changes: true
+name: networking
+version: '7'
