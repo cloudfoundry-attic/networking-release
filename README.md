@@ -53,6 +53,17 @@ instance_groups:
               netmask: 255.255.255.224              # +
               interface: eth0                       # +
               gateway: 10.9.9.1                     # +
+      - name: port_forwarding                       # +
+        release: networking                         # +
+        properties:                                 # +
+          networking:
+            port_forwarding:                        # +
+              - external_port: 9200                 # +
+                internal_ip: 1.2.3.10               # +
+                internal_port: 9200                 # +
+              - external_port: 9292                 # +
+                internal_ip: 1.2.3.11               # +
+                internal_port: 9292                 # +
       - name: gorouter
         release: cf
 ```

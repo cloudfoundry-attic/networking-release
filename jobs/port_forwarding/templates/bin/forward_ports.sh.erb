@@ -1,0 +1,28 @@
+#!/bin/bash
+
+CHAIN="portforwarding-release"
+
+function forward_exists {
+	set -e
+	chain=$1
+	iptables -t nat -C ${chain} -j ${CHAIN} 2>/dev/null
+}
+
+if ! iptables -t nat -L ${CHAIN} >/dev/null 2>&1; then
+	iptables -t nat -N ${CHAIN}
+fi
+
+# if rule doesnt exists in prerouting, add it
+if ! forward_exists PREROUTING; then
+	iptables -t nat -A PREROUTING -j ${CHAIN}
+fi
+
+# if rule doesnt exist in output, add it
+if ! forward_exists OUTPUT; then
+	iptables -t nat -A OUTPUT -j ${CHAIN}
+fi
+
+
+<% p("networking.port_forwarding").each do |rule| %>
+sudo iptables -t nat -A portforwarding-release -p tcp -d <%= spec.networks.send(spec.networks.methods(false).first).ip %> --dport <%= rule['external_port'] %> -j DNAT --to <%= rule['internal_ip'] %>:<%= rule['internal_port'] %>
+<% end %>

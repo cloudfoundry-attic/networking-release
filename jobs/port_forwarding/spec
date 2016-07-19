@@ -1,0 +1,14 @@
+---
+name: port_forwarding
+packages: []
+templates:
+  bin/monit_debugger: bin/monit_debugger
+  bin/port_forwarding_ctl: bin/port_forwarding_ctl
+  bin/forward_ports.sh.erb: bin/forward_ports.sh
+  bin/unforward_ports.sh.erb: bin/unforward_ports.sh
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+properties:
+  networking.port_forwarding:
+    description: "List of hashes that describes the ports to be forwarded."
