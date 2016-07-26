@@ -1,0 +1,19 @@
+---
+name: iptables
+packages: []
+templates:
+  bin/monit_debugger: bin/monit_debugger
+  bin/iptables_ctl: bin/iptables_ctl
+  bin/enable_rules.sh.erb: bin/enable_rules.sh
+  bin/disable_rules.sh.erb: bin/disable_rules.sh
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+properties:
+  iptables:
+    description: "Map of rules per chain per table to apply in iptables"
+    example: |
+      iptables:
+        nat: # must match a valid iptables table (nat, filter, raw, mangle, security)
+          POSTROUTING: # must match an existing iptables chain for the above table
+          - -s 10.244.0.0/24 -j MASQUERADE # must be a valid iptables rule expression
