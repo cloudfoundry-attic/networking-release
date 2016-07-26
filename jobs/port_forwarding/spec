@@ -1,14 +1,21 @@
 ---
 name: port_forwarding
+
 packages: []
+
 templates:
-  bin/monit_debugger: bin/monit_debugger
-  bin/port_forwarding_ctl: bin/port_forwarding_ctl
+  bin/ctl: bin/ctl
   bin/forward_ports.sh.erb: bin/forward_ports.sh
   bin/unforward_ports.sh.erb: bin/unforward_ports.sh
-  data/properties.sh.erb: data/properties.sh
-  helpers/ctl_setup.sh: helpers/ctl_setup.sh
-  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
 properties:
   networking.port_forwarding:
-    description: "List of hashes that describes the ports to be forwarded."
+    description: "List of rules that describes the ports to be forwarded. Defaults `internal_ip` to '127.0.0.1'."
+    default: []
+    example:
+    - external_port: 80
+      internal_ip: 10.10.0.34
+      internal_port: 8080
+    - external_port: 443
+      internal_ip: 10.10.0.34
+      internal_port: 4443

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e -u
+
+LOG_DIR=/var/vcap/sys/log/port_forwarding
+RUN_DIR=/var/vcap/sys/run/port_forwarding
+
+mkdir -p $RUN_DIR $LOG_DIR
+
+exec >>$LOG_DIR/stdout.log 2>&1
+
+case $1 in
+
+  start)
+      echo -n "Applying iptables rules for port forwarding"
+      /var/vcap/jobs/port_forwarding/bin/forward_ports.sh
+      touch $RUN_DIR/port_forwarding.check
+      ;;
+
+  stop)
+      echo -n "Removing iptables rules for port forwarding"
+      /var/vcap/jobs/port_forwarding/bin/unforward_ports.sh
+      rm -f $RUN_DIR/port_forwarding.check
+      ;;
+  *)
+
+esac
+
+exit 0

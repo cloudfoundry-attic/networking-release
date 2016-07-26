@@ -12,17 +12,27 @@ if ! iptables -t nat -L ${CHAIN} >/dev/null 2>&1; then
 	iptables -t nat -N ${CHAIN}
 fi
 
-# if rule doesnt exists in prerouting, add it
 if ! forward_exists PREROUTING; then
 	iptables -t nat -A PREROUTING -j ${CHAIN}
 fi
 
-# if rule doesnt exist in output, add it
 if ! forward_exists OUTPUT; then
 	iptables -t nat -A OUTPUT -j ${CHAIN}
 fi
 
+iptables -F ${CHAIN} || true
+
+# Reset in case when there is no localhost routing
+sysctl net.ipv4.conf.all.route_localnet=0
 
 <% p("networking.port_forwarding").each do |rule| %>
-sudo iptables -t nat -A portforwarding-release -p tcp -d <%= spec.networks.send(spec.networks.methods(false).first).ip %> --dport <%= rule['external_port'] %> -j DNAT --to <%= rule['internal_ip'] %>:<%= rule['internal_port'] %>
+	<% external_port = rule['external_port'] || raise("Expected non-empty 'external_port' on '#{rule.inspect}' rule") %>
+	<% internal_ip   = rule['internal_ip']   || "127.0.0.1" %>
+	<% internal_port = rule['internal_port'] || raise("Expected non-empty 'internal_port' on '#{rule.inspect}' rule") %>
+
+	sudo iptables -t nat -A portforwarding-release -p tcp --dport <%= external_port %> -j DNAT --to <%= internal_ip %>:<%= internal_port %>
+
+	<% if internal_ip == "127.0.0.1" %>
+		sysctl net.ipv4.conf.all.route_localnet=1
+	<% end %>
 <% end %>
