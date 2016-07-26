@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -ex
+
+sysctl net.ipv4.conf.all.rp_filter=<%= p('multi_home.rp_filter') %>
+
+# In case VM is restarted
+cat > /etc/sysctl.d/70-bosh-multi-home.conf <<EOF
+net.ipv4.conf.all.rp_filter=<%= p('multi_home.rp_filter') %>
+EOF

@@ -1,0 +1,10 @@
+---
+name: multi_home
+
+templates:
+  pre-start.sh.erb: bin/pre-start
+
+properties:
+  multi_home.rp_filter:
+    description: Enable kernel to accept asymmetrically routed packets. See http://engineering.pivotal.io/post/multi-homed-bosh-director for more details.
+    default: 2
