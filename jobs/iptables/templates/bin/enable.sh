@@ -16,15 +16,14 @@ function setup_chain {
 	fi
 }
 
-<% if_p("iptables") do |tables|
-tables.each do |table, chains|
-	chains.each do |chain, rules|
-%>
+<% p("iptables").each do |table, chains|
+	chains.each do |chain, rules| %>
+
 setup_chain "<%= table %>" "<%= chain %>" "pfbr-custom-<%= chain %>"
 
 <% rules.each do |rule| %>
 	iptables -t "${table}" -A "pfbr-custom-<%= chain %>"  <%= rule %>
 <% end %>
-<% end %>
-<% end %>
+
+	<% end %>
 <% end %>

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-<% if_p("iptables") do |tables|
-	tables.each do |table, chains|
-		chains.each do |chain, rules| %>
-iptables -t "<%= table %>" -F "pfbr-custom-<%= chain %>"
-<% end %>
-<% end %>
-<% end %>
