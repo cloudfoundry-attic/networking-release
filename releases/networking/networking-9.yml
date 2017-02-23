@@ -1,0 +1,37 @@
+name: networking
+version: "9"
+commit_hash: 373b61e
+uncommitted_changes: false
+jobs:
+- name: gateway
+  version: 4c017076625ffc4b0ec9b61996b46f9086e800a7
+  fingerprint: 4c017076625ffc4b0ec9b61996b46f9086e800a7
+  sha1: 0803d1d085b7f7aac7b7a7de52f9b30095d11aff
+- name: iptables
+  version: fa4165f10ad596327915f64de5587649fa68ba71
+  fingerprint: fa4165f10ad596327915f64de5587649fa68ba71
+  sha1: 275aeef7218679794663cf9eba8db1f773b2b6fc
+- name: multi_home
+  version: 2cf9f7ffcbff85ea9ca4b2b3618b046e0a6c6021
+  fingerprint: 2cf9f7ffcbff85ea9ca4b2b3618b046e0a6c6021
+  sha1: 618d11bef93c14ba10f0a3d1f24fd8b3601bb992
+- name: nat
+  version: 94c903dc14a0950c1299dffe416a7b5efe513b2c
+  fingerprint: 94c903dc14a0950c1299dffe416a7b5efe513b2c
+  sha1: 05056e445c534ab4b8c425d698ca1d1e6f8716e6
+- name: port_forwarding
+  version: 1b107f3f2648c62682b421502a7373858ed59b26
+  fingerprint: 1b107f3f2648c62682b421502a7373858ed59b26
+  sha1: f2968788dac496ec642863111280327c837633fa
+- name: routes
+  version: 95bd9711265f97087bb4becb819a000b36d2a925
+  fingerprint: 95bd9711265f97087bb4becb819a000b36d2a925
+  sha1: 2c327987ce7ad83f9a4238653034ae5fb2f2127e
+- name: set_mtu
+  version: 1cb4695d5ae56239858120a10e7ed379e85a376b
+  fingerprint: 1cb4695d5ae56239858120a10e7ed379e85a376b
+  sha1: b37e45cda51c24afaf9ef5ca1bb852d32a122165
+license:
+  version: b05c781702eb7beb67f8590ba3b577efb5c5a575
+  fingerprint: b05c781702eb7beb67f8590ba3b577efb5c5a575
+  sha1: 66c47e39720a8527bee9289e78d8c998fb193a87

@@ -1,9 +1,10 @@
----
 builds:
-  f1e48903-0495-41f3-985c-a07b040eabcf:
-    version: '6'
-  bad286e9-a650-4368-9eae-f75330b59300:
-    version: '7'
   3fbf9849-f9a2-4127-bd87-bdf9a20b0dcf:
-    version: '8'
-format-version: '2'
+    version: "8"
+  9238988d-fbb5-450a-6b0d-7ec484ed8757:
+    version: "9"
+  bad286e9-a650-4368-9eae-f75330b59300:
+    version: "7"
+  f1e48903-0495-41f3-985c-a07b040eabcf:
+    version: "6"
+format-version: "2"
