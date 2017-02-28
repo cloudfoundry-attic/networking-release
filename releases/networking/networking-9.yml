@@ -2,6 +2,7 @@ name: networking
 version: "9"
 commit_hash: 373b61e
 uncommitted_changes: false
+packages: []
 jobs:
 - name: gateway
   version: 4c017076625ffc4b0ec9b61996b46f9086e800a7
