@@ -26,11 +26,13 @@ iptables -F ${CHAIN} || true
 sysctl net.ipv4.conf.all.route_localnet=0
 
 <% p("networking.port_forwarding").each do |rule| %>
-	<% external_port = rule['external_port'] || raise("Expected non-empty 'external_port' on '#{rule.inspect}' rule") %>
-	<% internal_ip   = rule['internal_ip']   || "127.0.0.1" %>
-	<% internal_port = rule['internal_port'] || raise("Expected non-empty 'internal_port' on '#{rule.inspect}' rule") %>
-
-	sudo iptables -t nat -A portforwarding-release -p tcp -d <%= spec.networks.send(spec.networks.methods(false).first).ip %> --dport <%= external_port %> -j DNAT --to <%= internal_ip %>:<%= internal_port %>
+	<%
+		external_ip   = rule['external_ip']   || spec.address
+		external_port = rule['external_port'] || raise("Expected non-empty 'external_port' on '#{rule.inspect}' rule")
+		internal_ip   = rule['internal_ip']   || "127.0.0.1"
+		internal_port = rule['internal_port'] || raise("Expected non-empty 'internal_port' on '#{rule.inspect}' rule")
+	-%>
+	sudo iptables -t nat -A portforwarding-release -p tcp -d <%= external_ip %> --dport <%= external_port %> -j DNAT --to <%= internal_ip %>:<%= internal_port %>
 
 	<% if internal_ip == "127.0.0.1" %>
 		sysctl net.ipv4.conf.all.route_localnet=1
