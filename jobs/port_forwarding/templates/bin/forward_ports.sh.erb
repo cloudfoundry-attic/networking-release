@@ -22,17 +22,19 @@ fi
 
 iptables -F ${CHAIN} || true
 
-# Reset in case when there is no localhost routing
-sysctl net.ipv4.conf.all.route_localnet=0
+sysctl net.ipv4.conf.all.route_localnet=1
 
 <% p("networking.port_forwarding").each do |rule| %>
-	<% external_port = rule['external_port'] || raise("Expected non-empty 'external_port' on '#{rule.inspect}' rule") %>
-	<% internal_ip   = rule['internal_ip']   || "127.0.0.1" %>
-	<% internal_port = rule['internal_port'] || raise("Expected non-empty 'internal_port' on '#{rule.inspect}' rule") %>
+	<%
+		external_ip   = rule['external_ip']   || spec.address
+		external_port = rule['external_port'] || raise("Expected non-empty 'external_port' on '#{rule.inspect}' rule")
+		internal_ip   = rule['internal_ip']   || "127.0.0.1"
+		internal_port = rule['internal_port'] || raise("Expected non-empty 'internal_port' on '#{rule.inspect}' rule")
+	%>
+	# external clients
+	sudo iptables -t nat -A portforwarding-release -p tcp -d <%= external_ip %> --dport <%= external_port %> -j DNAT --to <%= internal_ip %>:<%= internal_port %>
 
-	sudo iptables -t nat -A portforwarding-release -p tcp --dport <%= external_port %> -j DNAT --to <%= internal_ip %>:<%= internal_port %>
+	# loopback
+	sudo iptables -t nat -A portforwarding-release -p tcp -d 127.0.0.1 --dport <%= external_port %> -j DNAT --to <%= internal_ip %>:<%= internal_port %> -o lo
 
-	<% if internal_ip == "127.0.0.1" %>
-		sysctl net.ipv4.conf.all.route_localnet=1
-	<% end %>
 <% end %>
