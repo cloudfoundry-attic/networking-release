@@ -19,3 +19,7 @@ properties:
     - external_port: 443
       internal_ip: 10.10.0.34
       internal_port: 4443
+    - external_port: 53
+      internal_ip: 169.254.0.2
+      internal_port: 53
+      protocol: udp
