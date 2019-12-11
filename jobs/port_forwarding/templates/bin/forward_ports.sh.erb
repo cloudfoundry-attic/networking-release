@@ -29,8 +29,9 @@ sysctl net.ipv4.conf.all.route_localnet=0
 	<% external_port = rule['external_port'] || raise("Expected non-empty 'external_port' on '#{rule.inspect}' rule") %>
 	<% internal_ip   = rule['internal_ip']   || "127.0.0.1" %>
 	<% internal_port = rule['internal_port'] || raise("Expected non-empty 'internal_port' on '#{rule.inspect}' rule") %>
+	<% protocol      = rule['protocol'] || "tcp" %>
 
-	sudo iptables -t nat -A portforwarding-release -p tcp --dport <%= external_port %> -j DNAT --to <%= internal_ip %>:<%= internal_port %>
+	sudo iptables -t nat -A portforwarding-release -p <%= protocol %> --dport <%= external_port %> -j DNAT --to <%= internal_ip %>:<%= internal_port %>
 
 	<% if internal_ip == "127.0.0.1" %>
 		sysctl net.ipv4.conf.all.route_localnet=1
